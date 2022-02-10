@@ -35,17 +35,18 @@ public class TicTacToeView : MonoBehaviour
 
     public void OnCellCreated(NoMonoCell nonmonocell)
     {
-        CellPosition();
+        AllignCell();
        // Vector3 position
         GameObject cellView = Instantiate(CellPf, new Vector3(horizontalSpacing, 0, verticalSpacing), CellPf.transform.rotation);
         //unityCell.Add(cellView);
-        tempCounter++;
         cellView.GetComponent<UnityCell>().setNonMono(nonmonocell);
-        cellView.GetComponent<UnityCell>().SetStatus(NoMonoCell.Status.None);
+        tempCounter++;
+      
+      //  cellView.GetComponent<UnityCell>().SetStatus(NoMonoCell.Status.None);
     }
     public void AllignCell()
     {
-       
+        CellPosition();
     }
     public void CellPosition()
     {

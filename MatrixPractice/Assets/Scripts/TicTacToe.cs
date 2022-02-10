@@ -9,8 +9,11 @@ public class TicTacToe : MatrixUsingArrays
     int numOfRows;
     int numOfCol;
 
+    NoMonoCell.Status currentTurn = NoMonoCell.Status.Cross;
+
     public delegate void OnCellCreated(NoMonoCell nonmonocell);
     public event OnCellCreated onCellCreated;
+    
     public delegate void OnAllCellDone();
     public event OnAllCellDone onAllCellDone;
 
@@ -19,7 +22,7 @@ public class TicTacToe : MatrixUsingArrays
     {
 
         Debug.Log("TicTacToe IsWorking");
-        InitializeCell(row, col);
+       // InitializeCell(row, col);
     }
     public void InitializeCell(int row, int col)
     {
@@ -34,6 +37,7 @@ public class TicTacToe : MatrixUsingArrays
                 nonMono[i, j] = new NoMonoCell();
                 
                 onCellCreated?.Invoke(nonMono[i, j]);
+                nonMono[i, j].rowcol += SetStatusTurn;
                 //  Debug.Log("TicTacToe initialize Is Working");
             }
         }
@@ -42,6 +46,34 @@ public class TicTacToe : MatrixUsingArrays
         onAllCellDone?.Invoke();
 
     }
+
+    public void SetStatusTurn(int row, int col)
+    {
+       // Debug.Log("HussainZaidi");
+        TakeTurn(row, col);
+        nonMono[row, col].setStatus(currentTurn);
+        //CheckWin();
+
+    }
+    public void TakeTurn(int row, int col)
+    {
+        if (currentTurn == NoMonoCell.Status.Cross)
+        {
+            currentTurn = NoMonoCell.Status.Circle;
+        }
+        else
+        {
+            currentTurn = NoMonoCell.Status.Cross;
+        }
+
+    }
+
+
+  /*  private void CheckWin()
+    {
+        throw new NotImplementedException();
+    }*/
+
     public override void OnMatrixUpdated()
     {
       for(int i=0;i<numOfRows;i++)
@@ -53,18 +85,21 @@ public class TicTacToe : MatrixUsingArrays
 
         }
     }
-    public void CellStatusSetRequest(int row,int col)
+
+
+
+ /*   public void CellStatusSetRequest(int row,int col)
     {
         if (nonMono[row, col].getStatus() == NoMonoCell.Status.None) 
         {
             SetElement(row, col, (int)CurrentTurn());
         }
-    }
+    }*/
 
-    private int CurrentTurn()
+  /*  private int CurrentTurn()
     {
         return 0;
-    }
+    }*/
 }
    
 

@@ -27,7 +27,7 @@ public class UnityCell : MonoBehaviour
        // nonMono.setStatus(NoMonoCell.Status.None);
       //  Debug.Log((int)nonMono.getStatus());
 
-        SetStatus(NoMonoCell.Status.Win);
+        SetStatus(NoMonoCell.Status.None);
     }
 
     public void setNonMono(NoMonoCell nonmono)
@@ -37,9 +37,14 @@ public class UnityCell : MonoBehaviour
 
     private void OnMouseDown()
     {
+        nonMono.statusUpdated += SetStatus;
         nonMono.CellInteraction();
-    }
 
+    }
+    private void OnDestroy()
+    {
+        nonMono.statusUpdated -= SetStatus;
+    }
     // Update is called once per frame
     void Update()
     {
